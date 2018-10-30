@@ -6,11 +6,11 @@ entity Display_ctr is
 	port(
 		clk : in std_logic; -- Clock
 		Display_reset : in std_logic; -- Reset do display
-		-- Três entradas BCD
+		-- Tres entradas BCD
 		in2, in1, in0 : in std_logic_vector(3 downto 0);
 		-- Multiplexador
   		an : out std_logic_vector(2 downto 0);
-		-- Saída de Sete Segmentos
+		-- Saida de Sete Segmentos
   		sseg : out std_logic_vector (7 downto 0)
 	);
 end entity;
@@ -28,15 +28,15 @@ component Counter is
 	);
 end component;
 	
-	-- Sinal de saída do Counter
+	-- Sinal de saida do Counter
 	signal output_display : std_logic_vector (19 downto 0);
 	-- Seleciona o multiplexador
  	signal sel : std_logic_vector( 1 downto 0);
-	-- Saída do multiplexador
+	-- Saida do multiplexador
  	signal mux_out : std_logic_vector (3 downto 0);
 begin
 	Counter_display : Counter generic map(20) port map(clk, '1', not Display_reset, output_display);
-	-- Seleciona os últimos valores do vetor, com o fim de retardar a variação dos dígitos
+	-- Seleciona os ultimos valores do vetor, com o fim de retardar a variacao dos digitos
     	sel <= std_logic_vector(output_display(19 downto 18));
     	process(sel, in0, in1, in2)
     		begin

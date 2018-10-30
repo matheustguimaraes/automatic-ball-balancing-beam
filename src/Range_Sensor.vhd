@@ -8,8 +8,7 @@ entity Range_sensor is
 		-- Clock da placa, pulso de entrada
 		fpgaclk, pulse : in std_logic; 
 		-- Saida do Trigger
-		trigger_out : out std_logic;
-		servo : out std_logic;		
+		trigger_out : out std_logic; 
 		-- Conversao da distancia em unidades de medida de base 10
 		meters, centimeters, decimeters : out std_logic_vector(3 downto 0)
 	);
@@ -31,17 +30,6 @@ component Distance_calculator is
 		Distance: out std_logic_vector(8 downto 0)
 	);
 end component;
-
-component PWM is 
-	generic(
-		setpoint: std_logic_vector(8 downto 0) := "000010100"
-	);
-	port(
-		clk: in std_logic;
-		data: in std_logic_vector(8 downto 0);
-		servo: out std_logic
-	);
-end component;
 	
 component BCD_converter is
   port(
@@ -50,8 +38,10 @@ component BCD_converter is
   );
 end component;
 
-signal distance_out: std_logic_vector(8 downto 0);
-signal trigg_out: std_logic;
+	-- Sinal de saida do calculo da distancia para medida em metros 
+	signal distance_out: std_logic_vector(8 downto 0);
+	-- Sinal de saida do Trigger
+	signal trigg_out: std_logic;
 	
 begin
 	trigger_out <= trigg_out;
@@ -59,5 +49,4 @@ begin
 	trig: trigger_generator port map(fpgaclk,	trigg_out);
 	dist: Distance_calculator port map(fpgaclk, 	trigg_out, 	pulse, 		distance_out);
 	BCD_conv: BCD_converter port map(distance_out, 	meters, 	centimeters,	 decimeters);
-	PWM1 : PWM generic map ("000010100") port map(fpgaclk, distance_out, servo);
 end Behavioral;

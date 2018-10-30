@@ -24,7 +24,7 @@ component Counter is
 	);
 end component;
  
--- Sínal reset do sensor trigger
+-- Sinal reset do sensor trigger
 signal reset_counter: std_logic; 
 -- Calcula a distancia em microsegundos do contador
 signal output_counter: std_logic_vector(23 downto 0);

@@ -9,11 +9,11 @@ entity Counter is
 	port(
 		-- Clock
 		clk: in std_logic;
-		-- Comeca a contagem apenas quando "enable" está ativo
+		-- Comeca a contagem apenas quando "enable" esta ativo
 		enable: in std_logic;
-		-- Ativo em nível baixo, devido a configuracao da placa FPGA
+		-- Ativo em nivel baixo, devido a configuracao da placa FPGA
 		reset: in std_logic;
-		-- Saída do resultado da contagem 
+		-- Saida do resultado da contagem 
 		count_out: out std_logic_vector(n - 1 downto 0) 
 	);
 end Counter;

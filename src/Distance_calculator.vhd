@@ -35,8 +35,8 @@ signal Pulse_width : STD_LOGIC_VECTOR(21 downto 0);
 begin
 	Counter_pulse : Counter generic map(22) port map(clk, pulse, not Calculation_reset, Pulse_width);
 	Distance_calculator : process(pulse)
-		-- Utiliza o método shift and subtract para dividir Pulse por 58, o que transforma
-		-- números de nanosegundos para segundos, segundo o Data Sheet do sensor
+		-- Utiliza o metodo shift and subtract para dividir Pulse por 58, o que transforma
+		-- numeros de nanosegundos para segundos, segundo o Data Sheet do sensor
 		variable Result : integer; -- Valor inteiro de base 10
 		 -- Vetor temporario para ser multiplicado
 		variable Multiplier : STD_LOGIC_VECTOR(23 downto 0);
@@ -46,10 +46,10 @@ begin
 				Multiplier := Pulse_width * "11";
 				-- Multiplica os bits mais significativos por 3, e coloca-os em Result
 				Result := to_integer(unsigned(Multiplier(23 downto 13)));
-				-- Se Result atingir o valor maximo, Distance será "111111111" 
+				-- Se Result atingir o valor maximo, Distance sera "111111111" 
 				if(Result > 458) then
 					Distance <= "111111111";
-				-- Se não, Distance será o valor de Result colocado em um vetor de 9 posições
+				-- Se nao, Distance sera o valor de Result colocado em um vetor de 9 posicoes
 				else
 					Distance <= STD_LOGIC_VECTOR(to_unsigned(Result,9));
 				end if;

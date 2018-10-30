@@ -4,9 +4,9 @@ use ieee.std_logic_unsigned.all;
 
 entity BCD_converter is
   port(
-	-- Distancia de entrada em binário
+	-- Distancia de entrada em binario
 	Distance : in std_logic_vector(8 downto 0);
-	-- Saída em unidades de medida de base 10
+	-- Saida em unidades de medida de base 10
 	hundreds, tens, unit: out std_logic_vector(3 downto 0)
   );
 end BCD_converter;
@@ -19,7 +19,7 @@ begin
 	begin
 		bcd := (others => '0');
 		bcd(8 downto 0) := Distance;
-		-- Cria um laço de 8 repetições
+		-- Cria um lado de 8 repeticoes
 		for i in 0 to 8 loop
 			-- Usa o metodo de divisao de binarios
 			bcd(19 downto 0) := bcd(18 downto 0) & '0';
@@ -33,7 +33,7 @@ begin
 				bcd(20 downto 17) := bcd(20 downto 17) + "0011";
 			end if;	
 		end loop;
-	-- Saídas
+	-- Saidas
 	hundreds <= bcd(20 downto 17);
 	tens <= bcd(16 downto 13);
 	unit <= bcd(12 downto 9);
